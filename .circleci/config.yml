@@ -43,13 +43,13 @@ commands:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.0.0
+      - image: cimg/ruby:2.7.2
     steps:
       - checkout
       - ruby/install-deps
   linter:
     docker:
-      - image: cimg/ruby:3.0.0
+      - image: cimg/ruby:2.7.2
     steps:
       - checkout
       - bundler
@@ -57,7 +57,7 @@ jobs:
       - fasterer
   test:
     docker:
-      - image: cimg/ruby:3.0.0
+      - image: cimg/ruby:2.7.2
       - image: circleci/postgres:12.0
         environment:
           POSTGRES_USER: postgresql
