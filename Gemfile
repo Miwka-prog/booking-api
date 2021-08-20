@@ -6,6 +6,9 @@ ruby '2.7.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'jbuilder', '~> 2.7'
 gem 'pg'
+gem 'devise'
+gem 'devise-jwt'
+gem 'rack-cors'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4'
 gem 'sass-rails', '>= 6'
@@ -36,6 +39,8 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'rspec_junit_formatter', '~> 0.2.3'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
