@@ -32,3 +32,15 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+
+Metrics/LineLength:
+  Exclude:
+    - config/initializers/devise.rb
+
+RSpec/InstanceVariable:
+  Exclude:
+    - spec/controllers/registrations_controller_spec.rb
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/controllers/registrations_controller_spec.rb
