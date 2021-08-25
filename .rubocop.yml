@@ -59,19 +59,19 @@ Metrics/AbcSize:
   Exclude:
     - app/controllers/passwords_controller.rb
     - app/controllers/sessions_controller.rb
-    - app/models/concerns/allow_list.rb
+    - app/models/concerns/users/allow_list.rb
     - lib/devise_custom_failure.rb
 Metrics/MethodLength:
   Exclude:
     - app/controllers/passwords_controller.rb
     - app/controllers/sessions_controller.rb
-    - app/models/concerns/allow_list.rb
+    - app/models/concerns/users/allow_list.rb
     - lib/devise_custom_failure.rb
 
 Rails/SkipsModelValidations:
   Exclude:
     - app/controllers/sessions_controller.rb
-    - app/models/concerns/allow_list.rb
+    - app/models/concerns/users/allow_list.rb
 
 RSpec/ExampleLength:
   Max: 20
