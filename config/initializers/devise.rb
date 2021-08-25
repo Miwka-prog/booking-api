@@ -281,7 +281,9 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
-
+  config.warden do |manager|
+    manager.failure_app = DeviseCustomFailure
+  end
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
   # is mountable, there are some extra configurations to be taken into account.
@@ -311,11 +313,13 @@ Devise.setup do |config|
   config.jwt do |jwt|
     jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
     jwt.dispatch_requests = [
-      ['POST', %r{^/api/login$}]
+      ['POST', %r{^/signin$}],
     ]
     jwt.revocation_requests = [
-      ['DELETE', %r{^/api/logout$}]
+      ['DELETE', %r{^/signout$}]
     ]
-    jwt.expiration_time = 1.day.to_i
+    jwt.expiration_time = 14.days.to_i
+    # Use default aud_header
+    jwt.aud_header = 'JWT_AUD'
   end
 end

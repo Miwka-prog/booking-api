@@ -23,7 +23,7 @@ group :development, :test do
   gem 'rubocop-performance', '~> 1.11', '>= 1.11.3'
   gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
   gem 'rubocop-rspec', '~> 2.3'
-
+  gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'fasterer', '~> 0.9.0'
   gem 'overcommit', '~> 0.57.0'
 end

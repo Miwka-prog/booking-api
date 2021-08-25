@@ -20,6 +20,10 @@ ActiveRecord::Schema.define(version: 2021_08_20_111434) do
     t.string "jti", null: false
     t.string "aud", null: false
     t.datetime "exp", null: false
+    t.string "remote_ip"
+    t.string "os_data"
+    t.string "browser_data"
+    t.string "device_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_allowlisted_jwts_on_jti", unique: true
