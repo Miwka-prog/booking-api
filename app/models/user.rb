@@ -35,13 +35,6 @@ class User < ApplicationRecord
 
   has_many :allowlisted_jwts, dependent: :destroy
 
-  validates :email, format: {
-    with: /\A(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+-+)|
- (\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})\z/,
-    message: 'Invalid email'
-  }
-  validates :password, length: { minimum: 6 }, on: :create
-  validates :password, presence: true, on: :create
   validates :first_name, :last_name, presence: true
 
   enum gender: { unknown: 0, male: 1, female: 2 }
