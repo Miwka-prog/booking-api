@@ -7,17 +7,27 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.0
   Exclude:
+    - app/jobs/candidate_parse_job.rb
     - bin/**/*
     - db/**/*
     - node_modules/**/*
     - vendor/**/*
+    - spec/fixtures/**/*
     - tmp/**/*
-    - config/environments/*
+    - lib/tasks/auto_annotate_models.rake
+    - config/**/*
 
 Style/Documentation:
   Enabled: false
 
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - app/controllers/registrations_controller.rb
+
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/GlobalStdStream:
@@ -26,9 +36,54 @@ Style/GlobalStdStream:
 Style/RedundantFetchBlock:
   Enabled: false
 
+Rails/ApplicationController:
+  Enabled: false
+
+Rails/EnvironmentVariableAccess:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
 Layout/LineLength:
   Max: 120
 
 Metrics/BlockLength:
   Exclude:
+    - config/*
     - spec/**/*
+    - config/routes.rb
+    - lib/tasks/auto_anotate_models.rake
+    -
+Metrics/AbcSize:
+  Exclude:
+    - app/controllers/passwords_controller.rb
+    - app/controllers/sessions_controller.rb
+    - app/models/concerns/users/allow_list.rb
+    - lib/devise_custom_failure.rb
+Metrics/MethodLength:
+  Exclude:
+    - app/controllers/passwords_controller.rb
+    - app/controllers/sessions_controller.rb
+    - app/models/concerns/users/allow_list.rb
+    - lib/devise_custom_failure.rb
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - app/controllers/sessions_controller.rb
+    - app/models/concerns/users/allow_list.rb
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Exclude:
+    - spec/controllers/registrations_controller_spec.rb
+    - spec/controllers/sessions_controller_spec.rb
+    - spec/controllers/sessions_controller_spec.rb
