@@ -48,8 +48,6 @@ class User < ApplicationRecord
 
   validates :gender, inclusion: { in: User.genders.keys }
 
-
-
   validates :birth_date, presence: true
   validate :validate_age
 
@@ -63,8 +61,6 @@ class User < ApplicationRecord
   private
 
   def validate_age
-    if birth_date.present? && birth_date > 18.years.ago
-      errors.add(:birth_date, 'You should be over 18 years old.')
-    end
+    errors.add(:birth_date, 'You should be over 18 years old.') if birth_date.present? && birth_date > 18.years.ago
   end
 end

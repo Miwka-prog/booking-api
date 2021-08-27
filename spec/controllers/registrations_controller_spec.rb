@@ -8,7 +8,7 @@ RSpec.describe RegistrationsController, type: :controller do
       password_confirmation: '12345678',
       first_name: 'Name',
       last_name: 'Last Name',
-      birth_date: Date.new(2002, 01, 01)
+      birth_date: Date.new(2002, 0o1, 0o1)
     }
   end
 
