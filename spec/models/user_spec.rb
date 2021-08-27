@@ -10,7 +10,7 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string
-#  gender                 :integer          default(0), not null
+#  gender                 :integer          default("unknown"), not null
 #  last_name              :string
 #  mobile                 :string           default("")
 #  remember_created_at    :datetime
