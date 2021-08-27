@@ -5,7 +5,10 @@ RSpec.describe RegistrationsController, type: :controller do
     {
       email: 'poasd@test.com',
       password: '12345678',
-      password_confirmation: '12345678'
+      password_confirmation: '12345678',
+      first_name: 'Name',
+      last_name: 'Last Name',
+      birth_date: Date.new(2002, 01, 01)
     }
   end
 
