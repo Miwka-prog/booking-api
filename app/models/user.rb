@@ -42,6 +42,22 @@ class User < ApplicationRecord
   }
   validates :password, length: { minimum: 6 }, on: :create
   validates :password, presence: true, on: :create
+  validates :first_name, :last_name, presence: true, unless: :lead
+
+  validates :gender, inclusion: { in: User.genders.keys }
+
+  enum gender: { unknown: 0, male: 1, female: 2 }
+
+  validates :birth_date, presence: true
+  validate :validate_age
+
+  private
+
+  def validate_age
+    if birth_date.present? && birth_date > 18.years.ago.to_d
+      errors.add(:birth_date, 'You should be over 18 years old.')
+    end
+  end
 
   def for_display
     {

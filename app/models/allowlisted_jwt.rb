@@ -24,5 +24,4 @@
 #  fk_rails_...  (user_id => users.id) ON DELETE => cascade
 #
 class AllowlistedJwt < ApplicationRecord
-  include Devise::JWT::RevocationStrategies::Allowlist
 end
