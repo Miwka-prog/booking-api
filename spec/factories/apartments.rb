@@ -20,6 +20,11 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Apartment < ApplicationRecord
-  belongs_to :user
+FactoryBot.define do
+  factory :apartment do
+    address { Faker::Address.street_address }
+    city { Faker::Address.city }
+    country { Faker::Address.country }
+    price_per_night { Faker::Commerce.price }
+  end
 end

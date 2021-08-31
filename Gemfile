@@ -13,6 +13,8 @@ gem 'puma', '~> 5.0'
 gem 'rack-cors'
 gem 'rails', '~> 6.1.4'
 gem 'sass-rails', '>= 6'
+gem 'grape'
+gem 'grape_on_rails_routes'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
