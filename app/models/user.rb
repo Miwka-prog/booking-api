@@ -34,7 +34,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :allowlisted_jwts, dependent: :destroy
-  has_many :apartments, :foreign_key => 'user_id'
+  has_many :apartments
 
   validates :first_name, :last_name, presence: true
 
@@ -49,7 +49,7 @@ class User < ApplicationRecord
     {
       id: id,
       email: email,
-      first_name: first_name,
+      first_name: first_name
     }
   end
 
