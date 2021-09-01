@@ -12,13 +12,13 @@ RSpec.describe 'Apartments', type: :request do
     it 'return all apartments' do
       apartments = Apartment.all
       get '/api/v1/apartments'
-      expect(JSON.parse(response.body)).to eq(JSON.parse(apartments.to_json))
+      expect(JSON.parse(response.body)["apartments"]).to eq(JSON.parse(apartments.to_json))
     end
 
     it 'returns specific apartment for a valid id' do
       apartment = Apartment.first
       get "/api/v1/apartments/#{apartment.id}"
-      expect(JSON.parse(response.body)).to eq(JSON.parse(apartment.to_json))
+      expect(JSON.parse(response.body)["apartment"]).to eq(JSON.parse(apartment.to_json))
     end
 
     it 'returns 404 status for an invalid id' do

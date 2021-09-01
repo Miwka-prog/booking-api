@@ -1,18 +1,27 @@
 module Grapes
   module V1
     class Apartments < Grapes::API
+      helpers do
+        def apartment
+          Apartment.find_by(id: params[:id])
+        end
+      end
       resources :apartments do
         desc 'Return all apartments'
         get do
-          Apartment.all
+          apartments = Apartment.all
+          { apartments: apartments }
         end
 
         desc 'Return specific apartment'
         route_param :id, type: Integer do
           get do
-            Apartment.find(params[:id])
-          rescue ActiveRecord::RecordNotFound
-            error!('Record Not Found', 404)
+            specific_apartment = apartment
+            if specific_apartment.present?
+              { apartment: specific_apartment }
+            else
+              error!('Record Not Found', 404)
+            end
           end
         end
 
@@ -26,8 +35,7 @@ module Grapes
           optional :description, type: String
         end
         post do
-          apartment = Apartment.create!(declared(params))
-          { apartment: apartment, message: 'Apartment created successfully' }
+          { apartment: ApartmentProcessing::Creator.create!(declared(params)), message: "Apartment created successfully" }
         end
 
         desc 'Update existing apartment object'
@@ -41,21 +49,25 @@ module Grapes
         end
         route_param :id do
           put do
-            apartment = Apartment.find(params[:id])
-            apartment.update(declared(params))
-            { message: 'Apartment updated successfully' }
-          rescue ActiveRecord::RecordNotFound
-            error!('Record Not Found', 404)
+            apartment_for_update = apartment
+            if apartment_for_update.present?
+              { apartment: ApartmentProcessing::Updater.update!(params[:id], declared(params)),
+                message: 'Apartment updated successfully' }
+            else
+              error!('Record Not Found', 404)
+            end
           end
         end
-
         desc 'Deletes existing apartment object'
         route_param :id, type: Integer do
           delete do
-            Apartment.find(params[:id]).delete
-            { message: 'Apartment deleted successfully' }
-          rescue ActiveRecord::RecordNotFound
-            error!('Record Not Found', 404)
+            apartment_for_destroy = apartment
+            if apartment_for_destroy.present?
+              ApartmentProcessing::Destroyer.destroy!(apartment_for_destroy)
+              { message: 'Apartment deleted successfully' }
+            else
+              error!('Record Not Found', 404)
+            end
           end
         end
       end
