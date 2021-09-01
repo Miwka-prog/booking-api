@@ -87,3 +87,5 @@ RSpec/InstanceVariable:
     - spec/controllers/registrations_controller_spec.rb
     - spec/controllers/sessions_controller_spec.rb
     - spec/controllers/sessions_controller_spec.rb
+Lint/EmptyClass:
+  Enabled: false

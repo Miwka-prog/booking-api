@@ -35,7 +35,8 @@ module Grapes
           optional :description, type: String
         end
         post do
-          { apartment: ApartmentProcessing::Creator.create!(declared(params)), message: "Apartment created successfully" }
+          { apartment: ApartmentProcessing::Creator.create!(declared(params)),
+            message: 'Apartment created successfully' }
         end
 
         desc 'Update existing apartment object'
