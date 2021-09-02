@@ -8,7 +8,6 @@ class SessionsController < Devise::SessionsController
   def create
     # Check both because rspec vs normal server requests .... do different things? WTF.
     possible_aud = request.headers['HTTP_JWT_AUD'].presence || request.headers['JWT_AUD'].presence
-
     self.resource = warden.authenticate!(auth_options)
     sign_in(resource_name, resource)
     if user_signed_in?

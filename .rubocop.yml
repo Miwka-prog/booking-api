@@ -54,7 +54,7 @@ Metrics/BlockLength:
     - spec/**/*
     - config/routes.rb
     - lib/tasks/auto_anotate_models.rake
-    -
+    - app/api/**/*
 Metrics/AbcSize:
   Exclude:
     - app/controllers/passwords_controller.rb
@@ -87,3 +87,5 @@ RSpec/InstanceVariable:
     - spec/controllers/registrations_controller_spec.rb
     - spec/controllers/sessions_controller_spec.rb
     - spec/controllers/sessions_controller_spec.rb
+Lint/EmptyClass:
+  Enabled: false

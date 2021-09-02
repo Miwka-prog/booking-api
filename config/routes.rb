@@ -4,9 +4,5 @@ Rails.application.routes.draw do
                registrations: 'registrations',
                sessions: 'sessions'
              }
-  resources :ping, only: [:index] do
-    collection do
-      get :auth
-    end
-  end
+  mount Grapes::API => '/'
 end
