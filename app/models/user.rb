@@ -34,7 +34,8 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :allowlisted_jwts, dependent: :destroy
-  has_many :apartments
+  has_many :apartments, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :first_name, :last_name, presence: true
 
