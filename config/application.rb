@@ -21,6 +21,9 @@ Bundler.require(*Rails.groups)
 module BookingApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.generators do |g|
+      g.test_framework :rspec
+    end
     config.load_defaults 6.1
 
     config.autoload_paths << Rails.root.join('lib')
