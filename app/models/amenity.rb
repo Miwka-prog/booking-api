@@ -9,5 +9,6 @@
 #  updated_at :datetime         not null
 #
 class Amenity < ApplicationRecord
-  belongs_to :apartment
+  has_many :apartment_amenities
+  has_many :apartments, through: :apartment_amenities
 end
