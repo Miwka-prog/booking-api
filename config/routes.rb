@@ -4,5 +4,5 @@ Rails.application.routes.draw do
                registrations: 'registrations',
                sessions: 'sessions'
              }
-  mount Grapes::API => '/'
+  mount Booking::API => '/'
 end
