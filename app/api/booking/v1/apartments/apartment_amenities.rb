@@ -26,7 +26,7 @@ module Booking
           post do
             current_apartment = apartment
             current_amenity = amenity
-            if current_apartment.present? and current_amenity.present?
+            if current_apartment.present? && current_amenity.present?
               { apartment_amenity: ApartmentAmenityProcessing::Creator.create!(declared(params)),
                 message: 'Apartment amenity created successfully' }
             else

@@ -3,10 +3,10 @@ RSpec.describe 'Amenity', type: :request do
   let!(:user) { create(:user) }
   let(:headers) { get_headers(user.email, user.password) }
   let(:apartment) { create(:apartment, user_id: user.id) }
-  let(:amenity) { create(:amenity) }
-  let(:apartment_amenity){ ApartmentAmenity.create(apartment_id: apartment.id, amenity_id: amenity.id) }
+  let(:apartment_amenity) { ApartmentAmenity.create(apartment_id: apartment.id, amenity_id: create(:amenity).id) }
+
   describe 'POST /api/v1/apartments/:apartment_id/apartment_amenities' do
-    let(:valid_params) { { amenity_id: amenity.id } }
+    let(:valid_params) { { amenity_id: create(:amenity).id } }
 
     context 'with valid params' do
       before do
@@ -14,7 +14,7 @@ RSpec.describe 'Amenity', type: :request do
       end
 
       it 'creates a new apartment' do
-        expect(JSON.parse(response.body)['apartment_amenity']['amenity_id']).to eq(amenity.id)
+        expect(JSON.parse(response.body)['apartment_amenity']['amenity_id']).to eq(valid_params[:amenity_id])
       end
 
       it 'returns 201 status' do
@@ -30,6 +30,7 @@ RSpec.describe 'Amenity', type: :request do
       end
     end
   end
+
   describe 'DELETE /apartments/:apartment_id/apartment_amenities/:id' do
     context 'with valid apartment ID' do
       it 'deletes the apartment amenity' do
