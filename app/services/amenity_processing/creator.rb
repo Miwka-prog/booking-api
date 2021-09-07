@@ -2,7 +2,7 @@ class AmenityProcessing::Creator < ServiceBase
   attr_reader :amenity_params
 
   def self.create!(amenity_params)
-    new(amenity_params).create_apartment
+    new(amenity_params).create_amenity
   end
 
   def initialize(amenity_params)
@@ -11,7 +11,7 @@ class AmenityProcessing::Creator < ServiceBase
     @amenity_params = amenity_params
   end
 
-  def create_apartment
+  def create_amenity
     Amenity.find_or_create_by(@amenity_params)
   end
 end
