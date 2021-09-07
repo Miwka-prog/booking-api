@@ -6,5 +6,6 @@ module Booking
 
     mount Booking::V1::Apartments
     mount Booking::V1::Apartments::Comments
+    mount Booking::V1::Amenities
   end
 end
