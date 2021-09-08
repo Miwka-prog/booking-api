@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  avatar                 :jsonb
 #  birth_date             :date
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
@@ -36,6 +37,8 @@ class User < ApplicationRecord
   has_many :allowlisted_jwts, dependent: :destroy
   has_many :apartments, dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  mount_uploader :avatar, UserUploader
 
   validates :first_name, :last_name, presence: true
 
