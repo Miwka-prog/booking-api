@@ -59,5 +59,20 @@ RSpec.describe User, type: :model do
                                  password: '123214', birth_date: Date.new(2005, 0o1, 0o1)).save
       expect(user).to eq(false)
     end
+
+    it 'is valid avatar' do
+      user = described_class.new(email: 'test@mail.test', first_name: 'Name', last_name: 'Last',
+                                 password: '123214', birth_date: Date.new(2002, 0o1, 0o1))
+      File.open(Rails.root.join('spec/fixtures/files/avatar.jpg')) { |f| user.avatar = f }
+      user.save
+      expect(user.avatar.file.nil?).to be false
+    end
+
+    it 'without avatar' do
+      user = described_class.new(email: 'test@mail.test', first_name: 'Name', last_name: 'Last',
+                                 password: '123214', birth_date: Date.new(2002, 0o1, 0o1))
+      user.save!
+      expect(user.avatar.file.nil?).to be true
+    end
   end
 end
