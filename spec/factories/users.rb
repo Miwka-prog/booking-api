@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  avatar                 :jsonb
 #  birth_date             :date
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
