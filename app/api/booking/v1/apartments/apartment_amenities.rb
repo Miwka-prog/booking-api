@@ -33,7 +33,7 @@ module Booking
               error!('Record Not Found', 404)
             end
           end
-          desc 'Delete comment for apartment'
+          desc 'Delete amenity for apartment'
           params do
             requires :apartment_id, type: Integer
           end
