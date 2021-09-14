@@ -12,8 +12,7 @@ RSpec.describe 'Booking apartment', type: :request do
 
   describe 'POST /api/v1/apartments/:apartment_id/booking_apartment' do
     let(:valid_params) do
-      { start_date: Date.new(2020, 0o1, 0o1), end_date: Date.new(2020, 0o1, 0o3),
-        apartment_id: apartment.id, user_id: user.id }
+      { start_date: Date.new(2020, 0o1, 0o1), end_date: Date.new(2020, 0o1, 0o3) }
     end
 
     context 'with valid params' do
