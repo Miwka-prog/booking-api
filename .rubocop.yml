@@ -89,3 +89,7 @@ RSpec/InstanceVariable:
     - spec/controllers/sessions_controller_spec.rb
 Lint/EmptyClass:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Exclude:
+    - spec/requests/apartment/booking_apartments_request_spec.rb

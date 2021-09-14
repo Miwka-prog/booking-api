@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_08_114120) do
+ActiveRecord::Schema.define(version: 2021_09_13_144159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(version: 2021_09_08_114120) do
     t.index ["user_id"], name: "index_apartments_on_user_id", unique: true
   end
 
+  create_table "booking_apartments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "apartment_id"
+    t.float "total_price"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["apartment_id"], name: "index_booking_apartments_on_apartment_id"
+    t.index ["user_id"], name: "index_booking_apartments_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "content", null: false
     t.bigint "user_id", null: false
@@ -95,6 +107,8 @@ ActiveRecord::Schema.define(version: 2021_09_08_114120) do
   add_foreign_key "apartment_amenities", "amenities"
   add_foreign_key "apartment_amenities", "apartments"
   add_foreign_key "apartments", "users"
+  add_foreign_key "booking_apartments", "apartments"
+  add_foreign_key "booking_apartments", "users"
   add_foreign_key "comments", "apartments", on_delete: :cascade
   add_foreign_key "comments", "users", on_delete: :cascade
 end

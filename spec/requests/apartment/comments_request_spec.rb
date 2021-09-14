@@ -76,7 +76,7 @@ RSpec.describe 'Comment', type: :request do
     end
   end
 
-  describe 'DELETE /apartments/:id' do
+  describe 'DELETE /apartments/:apartment_id/comments/:id' do
     context 'with valid apartment ID' do
       it 'deletes the comment' do
         delete "/api/v1/apartments/#{apartment.id}/comments/#{comment.id}", headers: headers
