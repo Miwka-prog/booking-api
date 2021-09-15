@@ -7,6 +7,7 @@
 #  city            :string           default("")
 #  country         :string           default("")
 #  description     :string           default("")
+#  photos          :json
 #  price_per_night :float
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -25,4 +26,6 @@ class Apartment < ApplicationRecord
   has_many :comments
   has_many :apartment_amenities
   has_many :amenities, through: :apartment_amenities
+
+  mount_uploaders :photos, ApartmentUploader
 end
