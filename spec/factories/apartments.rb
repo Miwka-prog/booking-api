@@ -7,6 +7,7 @@
 #  city            :string           default("")
 #  country         :string           default("")
 #  description     :string           default("")
+#  photos          :json
 #  price_per_night :float
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
