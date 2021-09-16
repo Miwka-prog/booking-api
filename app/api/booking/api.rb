@@ -9,5 +9,7 @@ module Booking
     mount Booking::V1::Apartments::ApartmentAmenities
     mount Booking::V1::Apartments::BookingApartments
     mount Booking::V1::Amenities
+    mount Booking::V1::Conversations
+    mount Booking::V1::Conversations::Messages
   end
 end
