@@ -37,6 +37,7 @@ class User < ApplicationRecord
   has_many :allowlisted_jwts, dependent: :destroy
   has_many :apartments, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :conversations, foreign_key: :sender_id, dependent: :destroy, inverse_of: :sender
 
   mount_uploader :avatar, UserUploader
 
