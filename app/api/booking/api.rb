@@ -11,5 +11,6 @@ module Booking
     mount Booking::V1::Amenities
     mount Booking::V1::Conversations
     mount Booking::V1::Conversations::Messages
+    mount Booking::V1::Search
   end
 end
