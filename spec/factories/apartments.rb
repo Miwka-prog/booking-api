@@ -11,11 +11,11 @@
 #  price_per_night :float
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  user_id         :bigint           not null
+#  user_id         :integer          not null
 #
 # Indexes
 #
-#  index_apartments_on_user_id  (user_id) UNIQUE
+#  index_apartments_on_user_id  (user_id)
 #
 # Foreign Keys
 #

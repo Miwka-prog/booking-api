@@ -11,11 +11,11 @@
 #  price_per_night :float
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  user_id         :bigint           not null
+#  user_id         :integer          not null
 #
 # Indexes
 #
-#  index_apartments_on_user_id  (user_id) UNIQUE
+#  index_apartments_on_user_id  (user_id)
 #
 # Foreign Keys
 #
@@ -26,6 +26,9 @@ class Apartment < ApplicationRecord
   has_many :comments
   has_many :apartment_amenities
   has_many :amenities, through: :apartment_amenities
+  has_many :booking_apartment
 
   mount_uploaders :photos, ApartmentUploader
+
+  scope :filter_by_city, ->(city) { where city: city }
 end
