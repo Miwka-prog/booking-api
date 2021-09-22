@@ -4,6 +4,10 @@
 #
 #  id              :bigint           not null, primary key
 #  address         :string           default("")
+#  apartment_type  :integer          default(0)
+#  bathrooms       :integer          default(0)
+#  bedrooms        :integer          default(0)
+#  beds            :integer          default(0)
 #  city            :string           default("")
 #  country         :string           default("")
 #  description     :string           default("")
