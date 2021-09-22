@@ -39,7 +39,6 @@ class Apartment < ApplicationRecord
   mount_uploaders :photos, ApartmentUploader
 
   scope :filter_by_city, ->(city) { where city: city }
-  scope :filter_by_amenities, ->(amenity_name) { where(amenities: { name: amenity_name }).joins(:amenities) }
   scope :sorted_by, lambda { |sort_option|
     direction = /desc$/.match?(sort_option) ? 'desc' : 'asc'
     case sort_option.to_s
