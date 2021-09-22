@@ -13,6 +13,17 @@ module Booking
           apartments = Searcher.search!(declared(params))
           { apartments: apartments }
         end
+        desc 'Search apartments with filters'
+        params do
+          optional :amenities
+          optional :sorted_type, type: String
+          optional :apartment_type, type: String
+          optional :rooms_and_beds
+        end
+        post '/filter' do
+          apartments = Filterer.filter!(declared(params))
+          { apartments: apartments }
+        end
       end
     end
   end
