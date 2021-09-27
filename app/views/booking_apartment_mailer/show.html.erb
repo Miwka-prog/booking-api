@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1><%= @recipient.first_name %> <%= @recipient.last_name %>, congratulation! Enjoy Your Trip! 🚗</h1>
+  <p>You have successfully booked apartment.</p>
+  <h1>Your apartment information</h1>
+  <p>City: <%= @room.city %></p>
+  <p>Country: <%= @room.country %></p>
+  <p>Address: <%= @room.address %></p>
+  <p>Price: <%= @room.price_per_night %></p>
+</body>
+</html>

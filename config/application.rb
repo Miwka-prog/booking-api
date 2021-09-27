@@ -26,6 +26,7 @@ module BookingApi
     end
     config.load_defaults 6.1
 
+    config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
     config.autoload_paths << Rails.root.join('lib')
     config.api_only = true
     config.middleware.insert_before 0, Rack::Cors do
