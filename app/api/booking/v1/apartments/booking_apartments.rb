@@ -3,6 +3,10 @@ module Booking
     class Apartments::BookingApartments < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
       helpers do
+        def send_email(user, apartment)
+          BookingApartmentMailer.with(user: user, apartment: apartment).show.deliver_now
+        end
+
         def end_date
           params['end_date'].nil? ? booking_apartment.end_date.to_date : params['end_date']
         end
@@ -41,9 +45,10 @@ module Booking
               if current_user.id == current_apartment.user.id
                 { message: "You can't book your own apartment!" }
               else
-                { booking_apartment: BookingApartmentProcessing::Creator.create!(declared(params)
-                  .merge(user_id: current_user.id, total_price: total_price)),
-                  message: 'Booking apartment created successfully' }
+                booking_apartment = BookingApartmentProcessing::Creator.create!(declared(params)
+                  .merge(user_id: current_user.id, total_price: total_price))
+                send_email(current_user, current_apartment)
+                { booking_apartment: booking_apartment, message: 'Booking apartment created successfully' }
               end
             else
               error!('Record Not Found', 404)
