@@ -20,6 +20,7 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  stripe_id              :string
 #
 # Indexes
 #
@@ -49,6 +50,11 @@ class User < ApplicationRecord
 
   validates :birth_date, presence: true
   validate :validate_age
+
+  after_create do
+    customer = Stripe::Customer.create(email: email)
+    update(stripe_id: customer.id)
+  end
 
   def for_display
     {

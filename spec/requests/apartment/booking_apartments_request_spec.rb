@@ -14,6 +14,13 @@ RSpec.describe 'Booking apartment', type: :request do
     let(:valid_params) do
       { start_date: Date.new(2020, 0o1, 0o1), end_date: Date.new(2020, 0o1, 0o3) }
     end
+    let!(:card_params) do
+      { number: '4242424242424242', exp_month: 9, exp_year: 2022, cvc: 111 }
+    end
+
+    before do
+      post '/api/v1/add_card', headers: headers_guest, params: card_params.to_json
+    end
 
     context 'with valid params' do
       before do
