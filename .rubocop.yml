@@ -93,3 +93,8 @@ Lint/EmptyClass:
 RSpec/MultipleMemoizedHelpers:
   Exclude:
     - spec/requests/apartment/booking_apartments_request_spec.rb
+    - spec/policies/apartment_amenity_policy_spec.rb
+    - spec/requests/apartment/comments_request_spec.rb
+
+RSpec/NamedSubject:
+  Enabled: false

@@ -6,7 +6,7 @@ RSpec.describe 'Booking apartment', type: :request do
   let(:headers_user) { get_headers(user.email, user.password) }
   let(:apartment) { create(:apartment, user_id: user.id) }
   let(:booking_apartment) do
-    create(:booking_apartment, apartment_id: apartment.id, user_id: user.id,
+    create(:booking_apartment, apartment_id: apartment.id, user_id: guest.id,
                                total_price: 200)
   end
 

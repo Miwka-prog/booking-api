@@ -4,6 +4,11 @@ RSpec.describe 'Amenity', type: :request do
   let(:headers) { get_headers(user.email, user.password) }
   let(:amenity) { create(:amenity) }
 
+  before do
+    user.remove_role :user
+    user.add_role :admin
+  end
+
   describe 'POST /api/v1/amenities' do
     let(:valid_params) { { name: 'Name' } }
 

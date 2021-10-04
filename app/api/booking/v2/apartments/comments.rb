@@ -35,6 +35,7 @@ module Booking
             post do
               current_apartment = apartment
               if current_apartment.present?
+                authorize Comment, :create?
                 { comment: CommentProcessing::Creator.create!(declared(params).merge(user_id: current_user.id)),
                   message: 'Comment created successfully' }
               else
@@ -50,6 +51,7 @@ module Booking
               put do
                 current_comment = comment
                 if current_comment.present?
+                  authorize current_comment, :update?
                   { comment: CommentProcessing::Updater.update!(params[:id],
                                                                 declared(params).merge(user_id: current_user.id)),
                     message: 'Comment updated successfully' }
@@ -66,6 +68,7 @@ module Booking
               delete do
                 current_comment = comment
                 if current_comment.present?
+                  authorize current_comment, :destroy?
                   { comment: CommentProcessing::Destroyer.destroy!(current_comment),
                     message: 'Comment deleted successfully' }
                 else

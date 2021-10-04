@@ -3,7 +3,9 @@ RSpec.describe 'Comment', type: :request do
   let!(:user) { create(:user) }
   let(:headers) { get_headers(user.email, user.password) }
   let(:apartment) { create(:apartment, user_id: user.id) }
-  let(:comment) { create(:comment, apartment: apartment) }
+  let(:commentator) { create(:user) }
+  let(:headers_commentator) { get_headers(commentator.email, commentator.password) }
+  let(:comment) { create(:comment, apartment: apartment, user_id: commentator.id) }
 
   describe 'GET /api/v2/apartments/:apartment_id/comments' do
     before do
@@ -65,12 +67,14 @@ RSpec.describe 'Comment', type: :request do
       end
 
       it 'updates the existing record' do
-        put "/api/v2/apartments/#{apartment.id}/comments/#{comment.id}", params: comment_attrs.to_json, headers: headers
+        put "/api/v2/apartments/#{apartment.id}/comments/#{comment.id}", params: comment_attrs.to_json,
+                                                                         headers: headers_commentator
         expect(comment.reload.content).to eq(comment_attrs[:content])
       end
 
       it 'returns success response' do
-        put "/api/v2/apartments/#{apartment.id}/comments/#{comment.id}", params: comment_attrs.to_json, headers: headers
+        put "/api/v2/apartments/#{apartment.id}/comments/#{comment.id}", params: comment_attrs.to_json,
+                                                                         headers: headers_commentator
         expect(JSON.parse(response.body)['message']).to eq('Comment updated successfully')
       end
     end
@@ -79,14 +83,14 @@ RSpec.describe 'Comment', type: :request do
   describe 'DELETE /apartments/:apartment_id/comments/:id' do
     context 'with valid apartment ID' do
       it 'deletes the comment' do
-        delete "/api/v2/apartments/#{apartment.id}/comments/#{comment.id}", headers: headers
+        delete "/api/v2/apartments/#{apartment.id}/comments/#{comment.id}", headers: headers_commentator
         expect(JSON.parse(response.body)['message']).to eq('Comment deleted successfully')
       end
     end
 
     context 'with invalid apartment ID' do
       it 'deletes the apartment' do
-        delete '/api/v2/apartments/1000/comments/1', headers: headers
+        delete '/api/v2/apartments/1000/comments/1', headers: headers_commentator
         expect(JSON.parse(response.body)['error']).to eq('Record Not Found')
       end
     end

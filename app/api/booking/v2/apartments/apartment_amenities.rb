@@ -27,6 +27,7 @@ module Booking
             current_apartment = apartment
             current_amenity = amenity
             if current_apartment.present? && current_amenity.present?
+              authorize current_apartment, :create?
               { apartment_amenity: ApartmentAmenityProcessing::Creator.create!(declared(params)),
                 message: 'Apartment amenity created successfully' }
             else
@@ -41,6 +42,7 @@ module Booking
             delete do
               current_apartment_amenity = apartment_amenity
               if current_apartment_amenity.present?
+                authorize current_apartment_amenity, :destroy?
                 { apartment_amenity: ApartmentAmenityProcessing::Destroyer.destroy!(current_apartment_amenity),
                   message: 'Apartment amenity deleted successfully' }
               else
