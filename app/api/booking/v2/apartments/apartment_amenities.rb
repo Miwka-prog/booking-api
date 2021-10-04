@@ -1,5 +1,5 @@
 module Booking
-  module V1
+  module V2
     class Apartments::ApartmentAmenities < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
       helpers do

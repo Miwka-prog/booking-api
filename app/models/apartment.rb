@@ -38,6 +38,13 @@ class Apartment < ApplicationRecord
 
   mount_uploaders :photos, ApartmentUploader
 
+  after_create :assign_host_role
+
+  def assign_host_role
+    user.remove_role :user
+    user.add_role :host
+  end
+
   scope :filter_by_city, ->(city) { where city: city }
   scope :sorted_by, lambda { |sort_option|
     direction = /desc$/.match?(sort_option) ? 'desc' : 'asc'

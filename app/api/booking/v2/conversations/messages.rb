@@ -1,5 +1,5 @@
 module Booking
-  module V1
+  module V2
     class Conversations::Messages < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
       helpers do

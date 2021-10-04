@@ -37,12 +37,5 @@ RSpec.describe 'Amenity', type: :request do
         expect(JSON.parse(response.body)['message']).to eq('Amenity deleted successfully')
       end
     end
-
-    context 'with invalid apartment ID' do
-      it 'deletes the apartment' do
-        delete '/api/v1/apartments/1000', headers: headers
-        expect(JSON.parse(response.body)['error']).to eq('Record Not Found')
-      end
-    end
   end
 end

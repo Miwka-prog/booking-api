@@ -3,7 +3,7 @@ class DeviseCustomFailure < Devise::FailureApp
     path_params = request.path_parameters
     control = path_params[:controller]
     act = path_params[:action]
-    if control == 'api/v1/ping' && act == 'index'
+    if control == 'api/v2/ping' && act == 'index'
       classify = control.classify.pluralize
 
       warden_options[:recall] = "#{classify}##{act}"

@@ -1,5 +1,5 @@
 module Booking
-  module V1
+  module V2
     class Users < Booking::API
       # rename file
       helpers ::APIHelpers::AuthenticationHelper
