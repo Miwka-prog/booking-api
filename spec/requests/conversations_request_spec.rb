@@ -6,10 +6,10 @@ RSpec.describe 'Conversations CRUD', type: :request do
   let(:conversation) { create(:conversation, sender: user_sender, recipient: user_recipient) }
   let(:headers) { get_headers(user_sender.email, user_sender.password) }
 
-  describe 'GET /api/v1/conversations' do
+  describe 'GET /api/v2/conversations' do
     context 'when we have conversations' do
       before do
-        get '/api/v1/conversations', headers: headers
+        get '/api/v2/conversations', headers: headers
       end
 
       it 'returns success code' do
@@ -23,11 +23,11 @@ RSpec.describe 'Conversations CRUD', type: :request do
     end
   end
 
-  describe 'POST /api/v1/conversations' do
+  describe 'POST /api/v2/conversations' do
     let(:valid_params) { { recipient_id: user_recipient.id } }
 
     before do
-      post '/api/v1/conversations', params: valid_params.to_json, headers: headers
+      post '/api/v2/conversations', params: valid_params.to_json, headers: headers
     end
 
     context 'with valid params' do

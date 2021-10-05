@@ -1,7 +1,6 @@
 module Booking
-  module V1
+  module V2
     class Users < Booking::API
-      # rename file
       helpers ::APIHelpers::AuthenticationHelper
       before { authenticate! }
       desc 'Add card'
@@ -21,10 +20,12 @@ module Booking
                                          cvc: params['cvc']
                                        }
                                      })
-        Stripe::Customer.create_source(
+        source = Stripe::Customer.create_source(
           current_user.stripe_id.to_s,
           { source: token.id }
         )
+        AddingCardPolicy.new(current_user, source).create?
+        source
       end
     end
   end

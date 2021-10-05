@@ -14,4 +14,8 @@ class ApartmentProcessing::Creator < ServiceBase
   def create_apartment
     Apartment.find_or_create_by(@apartment_params)
   end
+
+  def current_user
+    User.find_by(id: @apartment_params['user_id'])
+  end
 end

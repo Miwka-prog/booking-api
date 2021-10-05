@@ -11,7 +11,7 @@ RSpec.describe 'Messages CRUD', type: :request do
     context 'when we have messages' do
       before do
         create_list(:message, 4, content: 'Content', conversation: conversation, user_id: user_sender.id)
-        get "/api/v1/conversations/#{conversation.id}/messages", headers: headers
+        get "/api/v2/conversations/#{conversation.id}/messages", headers: headers
       end
 
       it 'returns success code' do
@@ -24,12 +24,12 @@ RSpec.describe 'Messages CRUD', type: :request do
     end
   end
 
-  describe 'POST /api/v1/conversations/:conversation_id/messages' do
+  describe 'POST /api/v2/conversations/:conversation_id/messages' do
     let(:valid_params) { { content: 'Message' } }
 
     context 'with valid params' do
       before do
-        post "/api/v1/conversations/#{conversation.id}/messages", params: valid_params.to_json, headers: headers
+        post "/api/v2/conversations/#{conversation.id}/messages", params: valid_params.to_json, headers: headers
       end
 
       it 'creates a new message' do

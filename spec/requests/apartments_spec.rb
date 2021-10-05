@@ -7,23 +7,23 @@ RSpec.describe 'Apartments', type: :request do
 
   describe 'GET /apartments' do
     it 'returns success code' do
-      get '/api/v1/apartments'
+      get '/api/v2/apartments'
       expect(response).to have_http_status(:ok)
     end
 
     it 'return all apartments' do
       apartments = Apartment.all
-      get '/api/v1/apartments'
+      get '/api/v2/apartments'
       expect(JSON.parse(response.body)['apartments']).to eq(JSON.parse(apartments.to_json))
     end
 
     it 'returns 404 status for an invalid id' do
-      get '/api/v1/apartments/1000'
+      get '/api/v2/apartments/1000'
       expect(response).to have_http_status(:not_found)
     end
 
     it 'returns record not found error for an invalid id' do
-      get '/api/v1/apartments/1000'
+      get '/api/v2/apartments/1000'
       expect(JSON.parse(response.body)['error']).to eq('Record Not Found')
     end
   end
@@ -35,12 +35,12 @@ RSpec.describe 'Apartments', type: :request do
 
     context 'with valid params' do
       it 'creates a new apartment' do
-        post '/api/v1/apartments', params: params.to_json, headers: headers
+        post '/api/v2/apartments', params: params.to_json, headers: headers
         expect(JSON.parse(response.body)['apartment']['city']).to eq('City')
       end
 
       it 'returns 201 status' do
-        post '/api/v1/apartments', params: params.to_json, headers: headers
+        post '/api/v2/apartments', params: params.to_json, headers: headers
         expect(response.status).to eq(201)
       end
     end
@@ -48,13 +48,13 @@ RSpec.describe 'Apartments', type: :request do
     context 'with invalid params' do
       it 'returns empty title error' do
         params[:city] = ''
-        post '/api/v1/apartments', params: params.to_json, headers: headers
+        post '/api/v2/apartments', params: params.to_json, headers: headers
         expect(JSON.parse(response.body)['error']).to eq('city is empty')
       end
 
       it 'returns validation error' do
         params.delete(:city)
-        post '/api/v1/apartments', params: params.to_json, headers: headers
+        post '/api/v2/apartments', params: params.to_json, headers: headers
         expect(JSON.parse(response.body)['error']).to eq('city is missing, city is empty')
       end
     end
@@ -68,12 +68,12 @@ RSpec.describe 'Apartments', type: :request do
 
     context 'with valid params' do
       it 'updates the existing record' do
-        put "/api/v1/apartments/#{apartment.id}", params: apartment_attrs.to_json, headers: headers
+        put "/api/v2/apartments/#{apartment.id}", params: apartment_attrs.to_json, headers: headers
         expect(apartment.reload.city).to eq(apartment_attrs[:city])
       end
 
       it 'returns success response' do
-        put "/api/v1/apartments/#{apartment.id}", params: apartment_attrs.to_json, headers: headers
+        put "/api/v2/apartments/#{apartment.id}", params: apartment_attrs.to_json, headers: headers
         expect(JSON.parse(response.body)['message']).to eq('Apartment updated successfully')
       end
     end
@@ -81,7 +81,7 @@ RSpec.describe 'Apartments', type: :request do
     context 'with invalid params' do
       it 'returns validation error' do
         apartment_attrs.delete(:city)
-        put "/api/v1/apartments/#{apartment.id}", params: apartment_attrs.to_json, headers: headers
+        put "/api/v2/apartments/#{apartment.id}", params: apartment_attrs.to_json, headers: headers
         expect(JSON.parse(response.body)['error']).to eq('city is missing, city is empty')
       end
     end
@@ -90,14 +90,14 @@ RSpec.describe 'Apartments', type: :request do
   describe 'DELETE /apartments/:id' do
     context 'with valid apartment ID' do
       it 'deletes the apartment' do
-        delete "/api/v1/apartments/#{apartment.id}", headers: headers
+        delete "/api/v2/apartments/#{apartment.id}", headers: headers
         expect(JSON.parse(response.body)['message']).to eq('Apartment deleted successfully')
       end
     end
 
     context 'with invalid apartment ID' do
       it 'deletes the apartment' do
-        delete '/api/v1/apartments/1000', headers: headers
+        delete '/api/v2/apartments/1000', headers: headers
         expect(JSON.parse(response.body)['error']).to eq('Record Not Found')
       end
     end

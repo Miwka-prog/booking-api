@@ -4,6 +4,11 @@ RSpec.describe 'Amenity', type: :request do
   let(:headers) { get_headers(user.email, user.password) }
   let(:amenity) { create(:amenity) }
 
+  before do
+    user.remove_role :user
+    user.add_role :admin
+  end
+
   describe 'POST /api/v1/amenities' do
     let(:valid_params) { { name: 'Name' } }
 
@@ -35,13 +40,6 @@ RSpec.describe 'Amenity', type: :request do
       it 'deletes the amenity' do
         delete "/api/v1/amenities/#{amenity.id}", headers: headers
         expect(JSON.parse(response.body)['message']).to eq('Amenity deleted successfully')
-      end
-    end
-
-    context 'with invalid apartment ID' do
-      it 'deletes the apartment' do
-        delete '/api/v1/apartments/1000', headers: headers
-        expect(JSON.parse(response.body)['error']).to eq('Record Not Found')
       end
     end
   end

@@ -14,6 +14,7 @@ module Booking
           requires :name, type: String, allow_blank: false
         end
         post do
+          authorize Amenity, :create?
           { amenity: AmenityProcessing::Creator.create!(declared(params)),
             message: 'Amenity created successfully' }
         end
@@ -22,6 +23,7 @@ module Booking
           delete do
             current_amenity = amenity
             if current_amenity.present?
+              authorize current_amenity, :destroy?
               { amenity: AmenityProcessing::Destroyer.destroy!(current_amenity),
                 message: 'Amenity deleted successfully' }
             else

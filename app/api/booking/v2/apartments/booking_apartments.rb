@@ -1,5 +1,5 @@
 module Booking
-  module V1
+  module V2
     class Apartments::BookingApartments < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
       helpers do
@@ -45,6 +45,7 @@ module Booking
               if current_user.id == current_apartment.user.id
                 { message: "You can't book your own apartment!" }
               else
+                authorize BookingApartment, :create?
                 booking_apartment = BookingApartmentProcessing::Creator.create!(declared(params)
                   .merge(user_id: current_user.id, total_price: total_price))
                 send_email(current_user, current_apartment)
@@ -62,6 +63,7 @@ module Booking
             delete do
               current_booking_apartment = booking_apartment
               if current_booking_apartment.present?
+                authorize current_booking_apartment, :destroy?
                 { booking_apartment: BookingApartmentProcessing::Destroyer.destroy!(current_booking_apartment),
                   message: 'Booking apartment deleted successfully' }
               else
@@ -79,6 +81,7 @@ module Booking
             put do
               current_booking_apartment = booking_apartment
               if current_booking_apartment.present?
+                authorize current_booking_apartment, :update?
                 { booking_apartment: BookingApartmentProcessing::Updater.update!(
                   params[:id], params.merge(user_id: current_user.id, total_price: total_price)
                 ),

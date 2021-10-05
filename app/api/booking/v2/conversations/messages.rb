@@ -1,5 +1,5 @@
 module Booking
-  module V1
+  module V2
     class Conversations::Messages < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
       helpers do
@@ -21,6 +21,7 @@ module Booking
             requires :conversation_id, type: Integer
           end
           get do
+            MessagePolicy.new(current_user, @conversation).show?
             messages = @conversation.messages.order('created_at DESC')
             { messages: messages }
           end
@@ -31,6 +32,7 @@ module Booking
             requires :content, type: String, allow_blank: false
           end
           post do
+            MessagePolicy.new(current_user, @conversation).create?
             { message: MessageProcessing::Creator.create!(declared(params).merge(user_id: current_user.id)) }
           end
         end

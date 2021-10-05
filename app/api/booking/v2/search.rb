@@ -1,5 +1,5 @@
 module Booking
-  module V1
+  module V2
     class Search < Booking::API
       resource :search do
         desc 'Search apartments by city and date'

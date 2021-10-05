@@ -1,5 +1,5 @@
 module Booking
-  module V1
+  module V2
     class Apartments < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
       helpers do
@@ -37,6 +37,7 @@ module Booking
             optional :description, type: String
           end
           post do
+            authorize Apartment, :create?
             { apartment: ApartmentProcessing::Creator.create!(declared(params).merge(user_id: current_user.id)),
               message: 'Apartment created successfully' }
           end
@@ -53,6 +54,7 @@ module Booking
             put do
               apartment_for_update = apartment
               if apartment_for_update.present?
+                authorize apartment_for_update, :update?
                 { apartment: ApartmentProcessing::Updater.update!(params[:id],
                                                                   declared(params).merge(user_id: current_user.id)),
                   message: 'Apartment updated successfully' }
@@ -66,6 +68,7 @@ module Booking
             delete do
               apartment_for_destroy = apartment
               if apartment_for_destroy.present?
+                authorize apartment_for_destroy, :destroy?
                 ApartmentProcessing::Destroyer.destroy!(apartment_for_destroy)
                 { message: 'Apartment deleted successfully' }
               else

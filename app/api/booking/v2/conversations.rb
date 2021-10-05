@@ -1,11 +1,12 @@
 module Booking
-  module V1
+  module V2
     class Conversations < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
       resources :conversations do
         before { authenticate! }
         desc 'Get all conversations'
         get do
+          authorize Conversation, :show?
           { conversations: Conversation.involving(current_user) }
         end
         desc 'Create conversation'
@@ -13,6 +14,7 @@ module Booking
           requires :recipient_id, type: Integer
         end
         post do
+          authorize Conversation, :create?
           conversation = Conversation.between(current_user.id, params[:recipient_id])
 
           if conversation.present?

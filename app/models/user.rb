@@ -29,6 +29,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  rolify
   include Devise::JWT::RevocationStrategies::Allowlist
 
   devise :database_authenticatable, :registerable,
@@ -52,8 +53,13 @@ class User < ApplicationRecord
   validate :validate_age
 
   after_create do
+    assign_default_role
     customer = Stripe::Customer.create(email: email)
     update(stripe_id: customer.id)
+  end
+
+  def assign_default_role
+    add_role(:user) if roles.blank?
   end
 
   def for_display
