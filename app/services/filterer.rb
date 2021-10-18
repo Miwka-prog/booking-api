@@ -35,8 +35,8 @@ class Filterer < ServiceBase
   def filter_by_amenities(user_amenities, apartments)
     apartments.each do |apartment|
       apartment_amenities = apartment.amenities.pluck(:name)
-      apartments.destroy(apartment.id) if (apartment_amenities & user_amenities).empty?
+      apartments = apartments.to_a - [apartment] if (apartment_amenities & user_amenities).empty?
     end
-    Apartment.all
+    apartments
   end
 end
