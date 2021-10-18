@@ -11,23 +11,12 @@ class Filterer < ServiceBase
     @params = params
   end
 
-  def filter # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
-    apartments = Apartment.all
-    apartments = filter_by_amenities(@params['amenities'], apartments) if @params['amenities']
-    apartments = apartments.sorted_by(@params['sorted_type']) if @params['sorted_type']
-    apartments = apartments.filter_by_type(@params['apartment_type']) if @params['apartment_type']
-    if @params['rooms_and_beds']
-      if @params['rooms_and_beds']['beds']
-        apartments = apartments.filter_by_rooms_and_beds('beds', @params['rooms_and_beds']['beds'])
-      end
-      if @params['rooms_and_beds']['bedrooms']
-        apartments = apartments.filter_by_rooms_and_beds('bedrooms', @params['rooms_and_beds']['bedrooms'])
-      end
-      if @params['rooms_and_beds']['bathrooms']
-        apartments = apartments.filter_by_rooms_and_beds('bathrooms', @params['rooms_and_beds']['bathrooms'])
-      end
+  def filter
+    if @params['amenities']
+      filter_by_amenities(@params['amenities'], Apartment.all)
+    else
+      @apartments = Apartment.filter(@params)
     end
-    apartments
   end
 
   private

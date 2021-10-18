@@ -16,8 +16,8 @@ module Booking
         desc 'Search apartments with filters'
         params do
           optional :amenities
-          optional :sorted_type, type: String
-          optional :apartment_type, type: String
+          optional :sorting, type: String
+          optional :type, type: String
           optional :rooms_and_beds
         end
         post '/filter' do

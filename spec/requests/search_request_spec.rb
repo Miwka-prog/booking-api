@@ -54,9 +54,9 @@ RSpec.describe 'Search', type: :request do
   describe 'POST /search/filter' do
     context 'with all params' do # rubocop:disable RSpec/MultipleMemoizedHelpers
       let!(:amenities) { create_list(:amenity, 3) }
-      let!(:sorted_params) { { sorted_type: 'price_desc' } }
+      let!(:sorted_params) { { sorting: 'price_desc' } }
       let!(:amenities_params) { { amenities: amenities.pluck(:name) } }
-      let!(:type_params) { { apartment_type: 'hostel' } }
+      let!(:type_params) { { type: 'hostel' } }
       let!(:rooms_and_beds_params) { { rooms_and_beds: { bedrooms: 2 } } }
       let!(:apartment_amenity) { create(:apartment_amenity, apartment: apartments.first, amenity: amenities.first) }
       let!(:apartment_amenity1) { create(:apartment_amenity, apartment: apartments.first, amenity: amenities.second) }
