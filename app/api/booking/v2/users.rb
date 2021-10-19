@@ -4,14 +4,14 @@ module Booking
       helpers ::APIHelpers::AuthenticationHelper
       helpers do
         def create_token
-            Stripe::Token.create({
-                                                   card: {
-                                                     number: params['number'],
-                                                     exp_month: params['exp_month'],
-                                                     exp_year: params['exp_year'],
-                                                     cvc: params['cvc']
-                                                   }
-                                                 })
+          Stripe::Token.create({
+                                 card: {
+                                   number: params['number'],
+                                   exp_month: params['exp_month'],
+                                   exp_year: params['exp_year'],
+                                   cvc: params['cvc']
+                                 }
+                               })
         end
       end
       before { authenticate! }
