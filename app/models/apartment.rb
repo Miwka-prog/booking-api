@@ -26,6 +26,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Apartment < ApplicationRecord
+  include Filterable
+
   belongs_to :user
   has_many :comments
   has_many :apartment_amenities
@@ -46,7 +48,7 @@ class Apartment < ApplicationRecord
   end
 
   scope :filter_by_city, ->(city) { where city: city }
-  scope :sorted_by, lambda { |sort_option|
+  scope :filter_by_sorting, lambda { |sort_option|
     direction = /desc$/.match?(sort_option) ? 'desc' : 'asc'
     case sort_option.to_s
     when /^price/
@@ -56,7 +58,7 @@ class Apartment < ApplicationRecord
     end
   }
   scope :filter_by_type, ->(type) { where apartment_type: type }
-  scope :filter_by_rooms_and_beds, lambda { |filter_option, number|
-    where("#{filter_option} >= #{number}")
+  scope :filter_by_rooms_and_beds, lambda { |params|
+    where("#{params.keys[0]} >= #{params[params.keys[0]]}")
   }
 end

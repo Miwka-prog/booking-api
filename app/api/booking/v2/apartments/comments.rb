@@ -2,6 +2,7 @@ module Booking
   module V2
     class Apartments::Comments < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
+      helpers ::APIHelpers::ExceptionHelper
       helpers do
         def apartment
           Apartment.find_by(id: params[:apartment_id])
@@ -22,7 +23,7 @@ module Booking
             if current_apartment.present?
               { comments: current_apartment.comments }
             else
-              error!('Record Not Found', 404)
+              not_found
             end
           end
           namespace do
@@ -39,7 +40,7 @@ module Booking
                 { comment: CommentProcessing::Creator.create!(declared(params).merge(user_id: current_user.id)),
                   message: 'Comment created successfully' }
               else
-                error!('Record Not Found', 404)
+                not_found
               end
             end
             desc 'Update comment for apartment'
@@ -56,7 +57,7 @@ module Booking
                                                                 declared(params).merge(user_id: current_user.id)),
                     message: 'Comment updated successfully' }
                 else
-                  error!('Record Not Found', 404)
+                  not_found
                 end
               end
             end
@@ -72,7 +73,7 @@ module Booking
                   { comment: CommentProcessing::Destroyer.destroy!(current_comment),
                     message: 'Comment deleted successfully' }
                 else
-                  error!('Record Not Found', 404)
+                  not_found
                 end
               end
             end

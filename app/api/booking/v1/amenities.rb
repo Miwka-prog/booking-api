@@ -2,6 +2,7 @@ module Booking
   module V1
     class Amenities < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
+      helpers ::APIHelpers::ExceptionHelper
       helpers do
         def amenity
           Amenity.find_by(id: params[:id])
@@ -27,7 +28,7 @@ module Booking
               { amenity: AmenityProcessing::Destroyer.destroy!(current_amenity),
                 message: 'Amenity deleted successfully' }
             else
-              error!('Record Not Found', 404)
+              not_found
             end
           end
         end
