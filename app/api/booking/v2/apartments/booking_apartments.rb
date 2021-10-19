@@ -52,7 +52,7 @@ module Booking
                 { booking_apartment: booking_apartment, message: 'Booking apartment created successfully' }
               end
             else
-              error!('Record Not Found', 404)
+              not_found
             end
           end
           desc 'Delete booking for apartment'
@@ -67,7 +67,7 @@ module Booking
                 { booking_apartment: BookingApartmentProcessing::Destroyer.destroy!(current_booking_apartment),
                   message: 'Booking apartment deleted successfully' }
               else
-                error!('Record Not Found', 404)
+                not_found
               end
             end
           end
@@ -87,7 +87,7 @@ module Booking
                 ),
                   message: 'Booking apartment updated successfully' }
               else
-                error!('Record Not Found', 404)
+                not_found
               end
             end
           end

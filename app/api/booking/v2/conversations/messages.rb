@@ -2,10 +2,11 @@ module Booking
   module V2
     class Conversations::Messages < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
+      helpers ::APIHelpers::ExceptionHelper
       helpers do
         def conversation
           @conversation = current_user.conversations.find_by(id: params[:conversation_id])
-          error!('Record Not Found', 404) if @conversation.blank?
+          not_found if @conversation.blank?
         end
       end
 

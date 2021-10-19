@@ -2,6 +2,7 @@ module Booking
   module V2
     class Apartments < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
+      helpers ::APIHelpers::ExceptionHelper
       helpers do
         def apartment
           Apartment.find_by(id: params[:id])
@@ -21,7 +22,7 @@ module Booking
             if specific_apartment.present?
               { apartment: specific_apartment }
             else
-              error!('Record Not Found', 404)
+              not_found
             end
           end
         end
@@ -59,7 +60,7 @@ module Booking
                                                                   declared(params).merge(user_id: current_user.id)),
                   message: 'Apartment updated successfully' }
               else
-                error!('Record Not Found', 404)
+                not_found
               end
             end
           end
@@ -72,7 +73,7 @@ module Booking
                 ApartmentProcessing::Destroyer.destroy!(apartment_for_destroy)
                 { message: 'Apartment deleted successfully' }
               else
-                error!('Record Not Found', 404)
+                not_found
               end
             end
           end

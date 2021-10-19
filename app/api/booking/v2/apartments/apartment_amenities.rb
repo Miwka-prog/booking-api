@@ -2,6 +2,7 @@ module Booking
   module V2
     class Apartments::ApartmentAmenities < Booking::API
       helpers ::APIHelpers::AuthenticationHelper
+      helpers ::APIHelpers::ExceptionHelper
       helpers do
         def apartment
           Apartment.find_by(id: params[:apartment_id])
@@ -31,7 +32,7 @@ module Booking
               { apartment_amenity: ApartmentAmenityProcessing::Creator.create!(declared(params)),
                 message: 'Apartment amenity created successfully' }
             else
-              error!('Record Not Found', 404)
+              not_found
             end
           end
           desc 'Delete amenity for apartment'
@@ -46,7 +47,7 @@ module Booking
                 { apartment_amenity: ApartmentAmenityProcessing::Destroyer.destroy!(current_apartment_amenity),
                   message: 'Apartment amenity deleted successfully' }
               else
-                error!('Record Not Found', 404)
+                not_found
               end
             end
           end
