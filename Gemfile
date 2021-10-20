@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
-gem 'grape-swagger'
 gem 'annotate'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave'
@@ -12,6 +11,7 @@ gem 'devise-jwt'
 gem 'fog-aws'
 gem 'grape'
 gem 'grape_on_rails_routes'
+gem 'grape-swagger'
 gem 'jbuilder', '~> 2.7'
 gem 'mini_magick'
 gem 'pg'
