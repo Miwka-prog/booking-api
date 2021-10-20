@@ -19,5 +19,6 @@ module Booking
     mount Booking::V2::Conversations::Messages
     mount Booking::V2::Search
     mount Booking::V2::Users
+    add_swagger_documentation
   end
 end
